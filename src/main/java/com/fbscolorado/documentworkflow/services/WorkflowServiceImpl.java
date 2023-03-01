@@ -48,7 +48,7 @@ public class WorkflowServiceImpl implements WorkflowService{
         Workflow managedWorkflow;
         if (optWorkflow.isPresent()) {
             managedWorkflow = optWorkflow.get();
-            managedWorkflow.setActive(false);
+            managedWorkflow.setEnabled(false);
             workflowRepo.saveAndFlush(managedWorkflow);
             return true;
         }

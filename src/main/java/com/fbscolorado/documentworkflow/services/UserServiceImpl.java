@@ -23,8 +23,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findUserByEmail(String email) {
-        return userRepo.findUserByEmail(email);
+    public User findUserByUsername(String name) {
+        return userRepo.findUserByEmail(name);
     }
 
     @Override
@@ -44,6 +44,7 @@ public class UserServiceImpl implements UserService {
         User managedUser;
         if (optionalUser.isPresent()) {
             managedUser = optionalUser.get();
+            managedUser.setUsername(user.getUsername());
             managedUser.setEmail(user.getEmail());
             managedUser.setPassword(user.getPassword());
             managedUser.setRole(user.getRole());
@@ -58,7 +59,7 @@ public class UserServiceImpl implements UserService {
         User managedUser;
         if (optionalUser.isPresent()) {
             managedUser = optionalUser.get();
-            managedUser.setActive(false);
+            managedUser.setEnabled(false);
             managedUser.setRole("inActive");
             userRepo.saveAndFlush(managedUser);
             return true;

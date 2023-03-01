@@ -41,7 +41,7 @@ public class DocumentServiceImpl implements DocumentService {
         Document managedDocument;
         if (optDocument.isPresent()) {
             managedDocument = optDocument.get();
-            managedDocument.setActive(false);
+            managedDocument.setEnabled(false);
             documentRepo.saveAndFlush(managedDocument);
             return true;
         }

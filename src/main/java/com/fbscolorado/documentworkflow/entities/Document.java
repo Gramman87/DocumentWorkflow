@@ -18,7 +18,7 @@ public class Document {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String link;
-    private boolean active;
+    private boolean enabled;
     @CreationTimestamp
     private LocalDateTime created;
     @UpdateTimestamp
@@ -35,12 +35,12 @@ public class Document {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Document document = (Document) o;
-        return id == document.id && active == document.active && link.equals(document.link) && created.equals(document.created) && updated.equals(document.updated);
+        return id == document.id && enabled == document.enabled && link.equals(document.link) && created.equals(document.created) && updated.equals(document.updated);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, link, active, created, updated);
+        return Objects.hash(id, link, enabled, created, updated);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class Document {
         return "Document{" +
                 "id=" + id +
                 ", link='" + link + '\'' +
-                ", active=" + active +
+                ", active=" + enabled +
                 ", created=" + created +
                 ", updated=" + updated +
                 '}';

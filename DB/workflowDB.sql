@@ -22,15 +22,16 @@ DROP TABLE IF EXISTS `user` ;
 
 CREATE TABLE IF NOT EXISTS `user` (
   `id` INT NOT NULL AUTO_INCREMENT,
+  `username` VARCHAR(100) NOT NULL,
   `email` VARCHAR(255) NOT NULL,
   `password` VARCHAR(50) NOT NULL,
   `role` VARCHAR(75) NOT NULL,
-  `active` TINYINT NOT NULL,
+  `enabled` TINYINT NOT NULL,
   `created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC),
-  UNIQUE INDEX `password_UNIQUE` (`password` ASC))
+  UNIQUE INDEX `username_UNIQUE` (`username` ASC))
 ENGINE = InnoDB;
 
 
@@ -55,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `workflow` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `current_user` INT NOT NULL,
   `next_user` INT NOT NULL,
-  `active` TINYINT NOT NULL,
+  `enabled` TINYINT NOT NULL,
   `created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `workflow_type_id` INT NOT NULL,
@@ -92,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `document` (
   `link` VARCHAR(2000) NOT NULL,
   `created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `active` TINYINT NOT NULL,
+  `enabled` TINYINT NOT NULL,
   `document_type_id` INT NOT NULL,
   PRIMARY KEY (`id`, `workflow_id`),
   INDEX `fk_object_workflow1_idx` (`workflow_id` ASC),
@@ -136,7 +137,7 @@ ENGINE = InnoDB;
 SET SQL_MODE = '';
 DROP USER IF EXISTS workflow@localhost;
 SET SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
-CREATE USER 'workflow'@'localhost' IDENTIFIED BY 'admin';
+CREATE USER 'workflow'@'localhost' IDENTIFIED BY 'workflow';
 
 GRANT SELECT, INSERT, TRIGGER, UPDATE, DELETE ON TABLE * TO 'workflow'@'localhost';
 
