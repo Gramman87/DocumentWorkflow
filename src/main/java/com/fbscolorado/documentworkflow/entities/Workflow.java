@@ -23,7 +23,7 @@ public class Workflow {
     private int currentUser;
     @Column(name = "next_user")
     private int nextUser;
-    private boolean active;
+    private boolean enabled;
     @CreationTimestamp
     private LocalDateTime created;
     @UpdateTimestamp
@@ -43,19 +43,19 @@ public class Workflow {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Workflow workflow = (Workflow) o;
-        return id == workflow.id && active == workflow.active && created.equals(workflow.created) && updated.equals(workflow.updated);
+        return id == workflow.id && enabled == workflow.enabled && created.equals(workflow.created) && updated.equals(workflow.updated);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, active, created, updated);
+        return Objects.hash(id, enabled, created, updated);
     }
 
     @Override
     public String toString() {
         return "Workflow{" +
                 "id=" + id +
-                ", active=" + active +
+                ", active=" + enabled +
                 ", created=" + created +
                 ", updated=" + updated +
                 '}';

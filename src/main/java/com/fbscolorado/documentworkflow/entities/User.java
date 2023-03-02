@@ -20,10 +20,11 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    private String username;
     private String email;
     private String password;
     private String role;
-    private boolean active;
+    private boolean enabled;
     @CreationTimestamp
     private LocalDateTime created;
     @UpdateTimestamp
@@ -37,12 +38,12 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id && active == user.active && email.equals(user.email) && password.equals(user.password) && role.equals(user.role) && created.equals(user.created) && updated.equals(user.updated);
+        return id == user.id && enabled == user.enabled && email.equals(user.email) && password.equals(user.password) && role.equals(user.role) && created.equals(user.created) && updated.equals(user.updated);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, email, password, role, active, created, updated);
+        return Objects.hash(id, email, password, role, enabled, created, updated);
     }
 
     @Override
@@ -52,7 +53,7 @@ public class User {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", role='" + role + '\'' +
-                ", active=" + active +
+                ", active=" + enabled +
                 ", created=" + created +
                 ", updated=" + updated +
                 '}';
