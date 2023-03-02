@@ -20,8 +20,8 @@ public class UserController {
         return userService.findAllUser();
     }
 
-    @GetMapping("users/email")
-    public User getUserByEmail(Principal principal) {
+    @GetMapping("users/username")
+    public User getUserByUsername(Principal principal) {
         return userService.findUserByUsername(principal.getName());
     }
 
@@ -29,7 +29,7 @@ public class UserController {
     public User showUser(Principal principal, @RequestBody User user, @PathVariable Integer id,
                          HttpServletResponse res) {
         try {
-            if (principal.getName().equals(user.getEmail())) {
+            if (principal.getName().equals(user.getUsername())) {
                 return userService.updateUser(principal.getName(), id, user);
             }
         } catch (Exception e) {
