@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateUser(String email, int id, User user) {
+    public User updateUser(String username, int id, User user) {
         Optional<User> optionalUser = userRepo.findById(id);
         User managedUser;
         if (optionalUser.isPresent()) {
