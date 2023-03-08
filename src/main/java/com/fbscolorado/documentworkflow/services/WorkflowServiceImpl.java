@@ -1,8 +1,11 @@
 package com.fbscolorado.documentworkflow.services;
 
 import com.fbscolorado.documentworkflow.entities.Document;
+import com.fbscolorado.documentworkflow.entities.User;
 import com.fbscolorado.documentworkflow.entities.Workflow;
+import com.fbscolorado.documentworkflow.entities.WorkflowType;
 import com.fbscolorado.documentworkflow.repositories.DocumentRepository;
+import com.fbscolorado.documentworkflow.repositories.UserRepository;
 import com.fbscolorado.documentworkflow.repositories.WorkflowRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +17,8 @@ import java.util.Optional;
 public class WorkflowServiceImpl implements WorkflowService{
     @Autowired
     private WorkflowRepository workflowRepo;
+    @Autowired
+    private UserRepository userRepo;
     @Autowired
     private DocumentRepository documentRepo;
 
@@ -36,7 +41,9 @@ public class WorkflowServiceImpl implements WorkflowService{
             managedWorkflow = optWorkflow.get();
             managedWorkflow.setCurrentUser(workflow.getCurrentUser());
             managedWorkflow.setNextUser(workflow.getNextUser());
-            managedWorkflow.setWorkflowType(workflow.getWorkflowType());
+            if (workflow.getWorkflowType() != null) {
+                managedWorkflow.setWorkflowType(workflow.getWorkflowType());
+            }
             workflowRepo.saveAndFlush(managedWorkflow);
         }
         return workflow;
@@ -56,7 +63,15 @@ public class WorkflowServiceImpl implements WorkflowService{
     }
 
     @Override
-    public List<Document> findDocumentsByWorkflowId(Integer id) {
+    public List<User> findUsersByWorkflowId(int id) {
+        if (!workflowRepo.existsById(id)) {
+            return null;
+        }
+        return userRepo.findUserByWorkflowsId(id);
+    }
+
+    @Override
+    public List<Document> findDocumentsByWorkflowId(int id) {
         if (!workflowRepo.existsById(id)) {
             return null;
         }

@@ -31,7 +31,7 @@ public class UserController {
     public User showUser(Principal principal, @RequestBody User user, @PathVariable Integer id, HttpServletResponse res) {
         try {
             if (principal.getName().equals(user.getUsername())) {
-                return userService.updateUser(principal.getName(), id, user);
+                return userService.findUserById(id);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -41,24 +41,8 @@ public class UserController {
         return user;
     }
 
-    @PostMapping("users")
-    public User createUser(@RequestBody User user, HttpServletRequest req, HttpServletResponse res) {
-        try {
-            userService.createUser(user);
-            res.setStatus(201);
-            StringBuffer url = req.getRequestURL();
-            url.append("/").append(user.getId());
-            res.setHeader("Location", url.toString());
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.err.println("INVALID ENTRY FOR NEW User");
-            user = null;
-        }
-        return user;
-    }
-
     @PutMapping("users/{id}")
-    public User updateUser(Principal principal, @PathVariable Integer id, @RequestBody User user, HttpServletRequest req, HttpServletResponse res) {
+    public User updateUser(Principal principal, @PathVariable Integer id, @RequestBody User user, HttpServletResponse res) {
         try {
             user = userService.updateUser(principal.getName(), id, user);
             if (user == null) {

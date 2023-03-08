@@ -1,5 +1,6 @@
 package com.fbscolorado.documentworkflow.repositories;
 
+import com.fbscolorado.documentworkflow.entities.User;
 import com.fbscolorado.documentworkflow.entities.Workflow;
 import org.springframework.data.jpa.repository.JpaRepository;
 
