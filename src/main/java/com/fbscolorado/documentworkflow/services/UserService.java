@@ -10,7 +10,7 @@ public interface UserService {
     public User findUserByUsername(String username);
     public User findUserById(int id);
     public User createUser(User user);
-    public User updateUser(String email, int id, User user);
+    public User updateUser(String username, int id, User user);
     public boolean deleteUser(int id);
     public List<Workflow> findWorkflowsByUserId(Integer id);
 }
